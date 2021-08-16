@@ -16,6 +16,7 @@
 .list-unstyled {
     padding-left: 0;
     list-style: none;
+    cursor: pointer;
 }
 li{
     font-size: 18px;
@@ -35,4 +36,61 @@ display: none;
 }
 .serach-enable{
     display: block;
+}
+
+.left{
+    display: flex;
+
+
+}
+
+.icon{
+    margin-right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.icon:hover{
+    color: rgb(0, 0, 0);
+}
+
+footer  {
+
+/* 
+    background-color: #F4FCE8;
+
+    height: 20px;
+
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    display: flex;
+    justify-content: space-between; */
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    height: 40px;
+    justify-content: space-between;
+    border-top: 1px solid #ddd;
+    background-color: #F4FCE8;
+    margin: 0 -20px -10px -20px;
+    padding: 12px 20px;
+    position: relative;
+    color: #777;
+}
+.btn{
+    cursor: pointer;
+    background: transparent;
+border: none;
+    margin-right: 10px;
+    border-radius: 3px;
+    color: #777;
+    
+}
+.btn:hover,.btn:active{
+    border: 1px solid #af2f2f33;
+}
+.right ,.left, footer,.btn {
+    font-size: 16px;
 }

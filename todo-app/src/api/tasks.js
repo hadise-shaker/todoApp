@@ -35,10 +35,9 @@ export const addTask = async (task) => {
     url: URL,
     headers: authHeader(),
     "content-type": "application/json",
-    body: JSON.stringify(task),
+    data: task,
   });
-  console.log("ADD", res);
-  return res.data.data;
+  return res;
 };
 
 export const getATaskById = async (id) => {
@@ -67,8 +66,18 @@ export const UpdateTaskById = async (id) => {
     })
     .catch((err) => console.log(err));
 };
-export const deleteAtask = async (id) => {
+/* export const deleteAtask = async (id) => {
   await axios.delete(URL + id).then((res) => {
     console.log(res);
   });
+};
+ */
+export const deleteAtask = async (id) => {
+  let res = await axios({
+    method: "delete",
+    url: URL + id,
+    headers: authHeader(),
+    "content-type": "application/json",
+  });
+  return res;
 };

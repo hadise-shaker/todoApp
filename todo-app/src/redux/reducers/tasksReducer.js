@@ -2,20 +2,19 @@ import { ActionTypes } from "../types/actionTypes";
 
 const initialState = {
   task: [],
-  selectedProduct: {},
-  productsByCategory: {},
+  loading: true,
 };
 
 export const tasksReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case ActionTypes.SET_PRODUCT:
-      return { ...state.task, task: payload };
+    case ActionTypes.LOADING:
+      return { ...state, loading: false };
     case ActionTypes.ADD_PRODUCT:
       return { ...state.task, task: payload };
 
     case ActionTypes.REMOVE_PRODUCT:
       return {
-        products: state.products.filter(({ id }) => id !== payload),
+        products: state.task.filter(({ id }) => id !== payload),
       };
     /*     case ActionTypes.EDIT_PRODUCT:
       return [...state.products, payload];
