@@ -73,20 +73,20 @@ const ToDoList = () => {
         <div>
            <div className="todolist">
 
-<div className="title">
+                <div className="title">
                    
-                   <h1>THINGS TO DO</h1>
-                   {showAdd&&
-                   <><Input type="text" placeholder="Add New" onChange={(e)=>setAdded(e.target.value)} /> <Button onClick={handleAdd} className={classes.btnSubmit}>Add</Button> </>}
-                   {showSearch&&
-                   <><Input type="text" placeholder="Search ..." onChange={(e)=>setSearch(e.target.value)}/> <Button  className={classes.btnSubmit}>Search</Button></>}
+                    <h1>THINGS TO DO</h1>
+                        {showAdd&&
+                            <><Input type="text" placeholder="Add New" onChange={(e)=>setAdded(e.target.value)} /> <Button onClick={handleAdd} className={classes.btnSubmit}>Add</Button> </>}
+                        {showSearch&&
+                            <><Input type="text" placeholder="Search ..." onChange={(e)=>setSearch(e.target.value)}/> <Button  className={classes.btnSubmit}>Search</Button></>}
                    
                   </div>
                   {loading&&<Loading/>}
                   
                   {!loading&& 
                   data?.length>0&&
-        <>
+                     <>
                    <ul className="list-unstyled">
                        
                    {data?.map((task,index)=>{
@@ -104,15 +104,16 @@ const ToDoList = () => {
           <footer>
                        <div className="left">
                            <div className="icon">
-                           <a onClick={handleShowAdd}><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                <a onClick={handleShowAdd}><i class="fa fa-plus" aria-hidden="true"></i></a>
                            </div>
                             <div className="icon">
-                            <a  onClick={handleShowSearch}><i class="fa fa-search" aria-hidden="true"></i></a>
+                                <a  onClick={handleShowSearch}><i class="fa fa-search" aria-hidden="true"></i></a>
                             </div>
                            
-                         
                        </div>
+
                        <h6>{data.length} items left</h6>
+                       
                        <div className="right">
                             <a className="btn" onClick={handleFilterAll}>all</a>
                             <a className="btn" >active</a>

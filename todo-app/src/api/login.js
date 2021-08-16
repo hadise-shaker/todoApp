@@ -49,13 +49,3 @@ export const registerUser = async (email, password, name, age) => {
 export const logout = () => {
   localStorage.removeItem("token");
 };
-
-export default function authHeader() {
-  const user = JSON.parse(localStorage.getItem("token"));
-
-  if (user && user.accessToken) {
-    return { Authorization: "Bearer " + user.accessToken };
-  } else {
-    return {};
-  }
-}

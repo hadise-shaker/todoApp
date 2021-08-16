@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   }
 }));
-const Login = () => {
+const Signup = () => {
     const classes = useStyles();
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -119,26 +119,27 @@ const Login = () => {
     }
     return (
 
-<div className={classes.card}>
-    <div className={classes.title}> 
-     <h1>Register Form</h1> 
-     </div>
+    <div className={classes.card}>
+        <div className={classes.title}> 
+            <h1>Register Form</h1> 
+        </div>
 
                     
             <form   noValidate autoComplete="off" onSubmit={handleRegister}>
                 <Input type="text" placeholder="Enter name *" onChange={(e)=>setName(e.target.value)} />
                 <Input type="text" placeholder="Enter email *" onChange={(e)=>setEmail(e.target.value)} />
                 {emailError&&<h6 style={{color:"red"}}>Please Enter A Valid Email</h6>}
+
                 <Input type="text" placeholder="Enter password *" onChange={(e)=>setPassword(e.target.value)} />
+
                 <Input type="number" placeholder="Enter age *"onChange={(e)=>setAge(e.target.value)} />
                 {empty&&<h6 style={{color:"red"}}>Please Enter Information</h6>}
                 <Button type="submit"  className={classes.btnSubmit}> SignUp</Button>
                 <Button   className={classes.btnSubmit}> <Link to="/">login</Link> </Button>
                 <div className={classes.btnGroup}>
-                <Button className={`${classes.btn} ${classes.blue}`}><i class="fa fa-facebook" aria-hidden="true"></i></Button>
-                <Button className={`${classes.btn} ${classes.red}`}><i class="fa fa-google" aria-hidden="true"></i></Button>
-                <Button className={`${classes.btn} ${classes.green}`}><i class="fa fa-twitter" aria-hidden="true"></i></Button>
-
+                    <Button className={`${classes.btn} ${classes.blue}`}><i class="fa fa-facebook" aria-hidden="true"></i></Button>
+                    <Button className={`${classes.btn} ${classes.red}`}><i class="fa fa-google" aria-hidden="true"></i></Button>
+                    <Button className={`${classes.btn} ${classes.green}`}><i class="fa fa-twitter" aria-hidden="true"></i></Button>
                 </div>
 
          </form>
@@ -149,4 +150,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Signup

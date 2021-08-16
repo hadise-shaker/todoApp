@@ -100,13 +100,11 @@ const Login = () => {
         if (email,password) {
             
             dispatch(loginUser(email,password))
-            
+          
             .then((res)=>{
-                
-                
-                    
+ 
                     history.push("/todo-list");
-                    /* window.location.reload(); */
+                   
                
             }).catch((err)=>{
                 setError(true)
@@ -121,9 +119,7 @@ const Login = () => {
        
 
     }
-/*     if (isLoggedIn) {
-        return <Redirect to="/todo-list" />;
-      } */
+
     return (
 
 <div className={classes.card}>
@@ -146,13 +142,7 @@ const Login = () => {
                 <Button className={`${classes.btn} ${classes.red}`}><i class="fa fa-google" aria-hidden="true"></i></Button>
                 <Button className={`${classes.btn} ${classes.green}`}><i class="fa fa-twitter" aria-hidden="true"></i></Button>
                 </div>
-{/*                 {message && (
-            <div >
-              <div >
-                {message}
-              </div>
-            </div>
-          )} */}
+
 
          </form>
          </div>

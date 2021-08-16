@@ -1,8 +1,6 @@
 import { login, registerUser, logout } from "../../api/login";
 import { ActionTypes } from "../types/actionTypes";
 
-import api from "../../api/login";
-
 export const register = (username, email, password, age) => (dispatch) => {
   return registerUser(username, email, password, age).then(
     (res) => {
@@ -36,7 +34,6 @@ export const loginUser = (username, password) => (dispatch) => {
 
 export const logoutUser = () => (dispatch) => {
   logout();
-
   dispatch({
     type: ActionTypes.LOGOUT,
   });

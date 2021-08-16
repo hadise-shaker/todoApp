@@ -5,13 +5,15 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import { isLoggedIn } from "./auth";
+import { useDispatch, useSelector } from "react-redux";
+
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
+  const { isLoggedIn } = useSelector((state) => state.user);
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (isLoggedIn()) {
+        if (isLoggedIn) {
           return <Component {...props} />;
         } else {
           return (
