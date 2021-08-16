@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
     },
 
   }));
- const Input = ({type,placeholder}) => {
+ const Input = ({type,placeholder,onChange}) => {
     const classes = useStyles();
     return (
-        <input type={type} placeholder={placeholder} className={classes.input} />
+        <input  type={type} placeholder={placeholder} className={classes.input} onChange={onChange} />
     )
 }
 

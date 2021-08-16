@@ -1,12 +1,9 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {TextField} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import Input from "./Input"
 import Button from "./Button"
-import {Link,useHistory} from "react-router-dom"
-import {login}from "../api/login"
-import { logDOM } from '@testing-library/react';
-
+import {Link} from "react-router-dom"
 const useStyles = makeStyles((theme) => ({
 
   container:{
@@ -82,59 +79,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Login = () => {
     const classes = useStyles();
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [error,setError]=useState(false)
-    const [empty,setEmpty]=useState(false)
-    const [loading,setLoading]=useState(false)
-    const history = useHistory();
-    const handleLogin=(e)=>{
-        e.preventDefault();
-        if (email,password) {
-            
-            login(email,password)
-            .then((res)=>{
-                
-                if(res.status===200){
-                    localStorage.setItem("token", res.data.token);
-                    history.push("/todo-list")
-                }
-            }).catch((err)=>{
-                setError(true)
-                setEmpty(false)
-            })
-        }
-        else{
-            setError(false)
-            setEmpty(true)
-            
-        }
-       
-
-    }
     return (
 
 <div className={classes.card}>
     <div className={classes.title}> 
-     <h1>Login Form</h1> 
+     <h1>Register Form</h1> 
      </div>
 
-{loading&&<h1>loading</h1>}
                     
-            <form   autoComplete="off" onSubmit={handleLogin}>
-                <Input type="text" placeholder="Enter email" onChange={(e)=>setEmail(e.target.value)} />
-               
-                <Input type="text" placeholder="Enter password" onChange={(e)=>setPassword(e.target.value)} />
-                {error&&<h6 style={{color:"red"}}>Please Enter A Valid Username and Password</h6>}
-                {empty&&<h6 style={{color:"red"}}>Please Enter Username and Password</h6>}
-                <Button type="submit"  className={classes.btnSubmit}> Submit</Button>
-                Don't have an account? <Link href="/signup" to="/signup" >Sign Up</Link>
+            <form   noValidate autoComplete="off">
+                <Input type="text" placeholder="Enter name"  />
+                <Input type="text" placeholder="Enter email" />
+                <Input type="text" placeholder="Enter password"  />
+                <Input type="number" placeholder="Enter age" />
+                <Button type="submit"  className={classes.btnSubmit}> SignUp</Button>
                 <div className={classes.btnGroup}>
                 <Button className={`${classes.btn} ${classes.blue}`}><i class="fa fa-facebook" aria-hidden="true"></i></Button>
                 <Button className={`${classes.btn} ${classes.red}`}><i class="fa fa-google" aria-hidden="true"></i></Button>
                 <Button className={`${classes.btn} ${classes.green}`}><i class="fa fa-twitter" aria-hidden="true"></i></Button>
                 </div>
 
+                
+               
+           
+{/*                    <TextField 
+                    error
+                    id="outlined-error-helper-text"
+                    label="Error"
+                    defaultValue="Hello World"
+                    helperText="Incorrect entry."
+                    variant="outlined"
+                    />
+                   <TextField
+                    error
+                    id="outlined-error-helper-text"
+                    label="Error"
+                    defaultValue="Hello World"
+                    helperText="Incorrect entry."
+                    variant="outlined"
+                    /> */}
          </form>
          </div>
 
