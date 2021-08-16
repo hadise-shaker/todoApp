@@ -1,9 +1,10 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {TextField} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import Input from "./Input"
 import Button from "./Button"
-import {Link} from "react-router-dom"
+import {Link,useHistory} from "react-router-dom"
+import {registerUser} from "../api/login"
 const useStyles = makeStyles((theme) => ({
 
   container:{
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:"#007bff",
     textAlign:"center",
     padding:"10px",
+    marginTop:"20px",
     borderRadius:" 30px",
     border:"none",
     cursor:"pointer",
@@ -79,6 +81,41 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Login = () => {
     const classes = useStyles();
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [age, setAge] = useState("")
+    const [empty, setEmpty] = useState(false)
+    const [emailError, setEmailError] = useState(false)
+    const history = useHistory();
+    const handleRegister=(e)=>{
+        e.preventDefault();
+        const emailRegex = RegExp(
+            /^([A-Za-z0-9_\-.])+@/
+        );
+        if (name,email,password,age) {
+            if (!emailRegex.test(email)) {
+                setEmpty(false)
+                setEmailError(true)
+                
+            }else{
+                setEmailError(false)
+            }
+            registerUser(email,password,name,age)
+            .then((res)=>{
+                
+                if(res.status===200||201){
+                    localStorage.setItem("token", res.data.token);
+                    history.push("/")
+                }
+            })
+        }else{
+            setEmpty(true)
+        }
+       
+       
+
+    }
     return (
 
 <div className={classes.card}>
@@ -87,12 +124,15 @@ const Login = () => {
      </div>
 
                     
-            <form   noValidate autoComplete="off">
-                <Input type="text" placeholder="Enter name"  />
-                <Input type="text" placeholder="Enter email" />
-                <Input type="text" placeholder="Enter password"  />
-                <Input type="number" placeholder="Enter age" />
+            <form   noValidate autoComplete="off" onSubmit={handleRegister}>
+                <Input type="text" placeholder="Enter name" onChange={(e)=>setName(e.target.value)} />
+                <Input type="text" placeholder="Enter email" onChange={(e)=>setEmail(e.target.value)} />
+                {emailError&&<h6 style={{color:"red"}}>Please Enter A Valid Email</h6>}
+                <Input type="text" placeholder="Enter password" onChange={(e)=>setPassword(e.target.value)} />
+                <Input type="number" placeholder="Enter age"onChange={(e)=>setAge(e.target.value)} />
+                {empty&&<h6 style={{color:"red"}}>Please Enter Information</h6>}
                 <Button type="submit"  className={classes.btnSubmit}> SignUp</Button>
+                <Button   className={classes.btnSubmit}> <Link to="/">login</Link> </Button>
                 <div className={classes.btnGroup}>
                 <Button className={`${classes.btn} ${classes.blue}`}><i class="fa fa-facebook" aria-hidden="true"></i></Button>
                 <Button className={`${classes.btn} ${classes.red}`}><i class="fa fa-google" aria-hidden="true"></i></Button>
