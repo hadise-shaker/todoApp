@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import Button from "./Button"
 import {useStyles}from "./Login"
 import Loading from "./Loading"
+import {getTaskByCompleted} from "../api/tasks"
 const ToDoList = () => {
     const [showAdd, setShowAdd] = useState(false)
     const [showSearch, setShowSearch] = useState(false)
@@ -36,7 +37,9 @@ const ToDoList = () => {
       }, [added]); 
       const handleAdd =()=>{
           if (added) {
+            setAdded("")
             dispatch(addATask({description:added,completed:false}))
+           
             
           }
           else{
@@ -59,6 +62,13 @@ const ToDoList = () => {
             dispatch(deleteTask(id))
             dispatch(getTasks())
         }
+        const handleFilterCompleted=()=>{
+            getTaskByCompleted().then((res)=>setData(res.data))
+            
+        }
+        const handleFilterAll=()=>{
+            setData(tasks)
+        }
     return (
         <div>
            <div className="todolist">
@@ -75,7 +85,7 @@ const ToDoList = () => {
                   {loading&&<Loading/>}
                   
                   {!loading&& 
-                  data?.length>0?
+                  data?.length>0&&
         <>
                    <ul className="list-unstyled">
                        
@@ -85,7 +95,13 @@ const ToDoList = () => {
                            )
                    })}
                    </ul>
-                   <footer>
+                 
+
+        </>   
+
+        
+        }
+          <footer>
                        <div className="left">
                            <div className="icon">
                            <a onClick={handleShowAdd}><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -98,18 +114,12 @@ const ToDoList = () => {
                        </div>
                        <h6>{data.length} items left</h6>
                        <div className="right">
-                            <a className="btn">all</a>
-                            <a className="btn">active</a>
-                            <a className="btn">completed</a>
+                            <a className="btn" onClick={handleFilterAll}>all</a>
+                            <a className="btn" >active</a>
+                            <a className="btn" onClick={handleFilterCompleted}>completed</a>
                        </div>
 
                    </footer>
-
-        </>   
-        :
-        <h3 style={{textAlign:"center"}}>No Result</h3>
-        
-        }
                
            </div>
         </div>

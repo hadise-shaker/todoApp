@@ -53,7 +53,8 @@ export const getTaskByCompleted = async () => {
   const data = await axios({
     method: "GET",
     url: URL + "?completed=true",
-    headers: { "content-type": "application/json" },
+    headers: authHeader(),
+    "content-type": "application/json",
   }).catch((err) => console.log(err));
   return data;
 };
