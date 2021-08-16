@@ -4,7 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Input from "./Input"
 import Button from "./Button"
 import {Link,useHistory} from "react-router-dom"
-import {registerUser} from "../api/login"
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../redux/actions/userActions";
+import {registerUser}from "../api/login"
 const useStyles = makeStyles((theme) => ({
 
   container:{
@@ -87,11 +89,14 @@ const Login = () => {
     const [age, setAge] = useState("")
     const [empty, setEmpty] = useState(false)
     const [emailError, setEmailError] = useState(false)
+/*     const { message } = useSelector(state => state.message); */
+    console.log();
+    const dispatch = useDispatch();
     const history = useHistory();
     const handleRegister=(e)=>{
         e.preventDefault();
         const emailRegex = RegExp(
-            /^([A-Za-z0-9_\-.])+@/
+            "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         );
         if (name,email,password,age) {
             if (!emailRegex.test(email)) {
@@ -101,14 +106,10 @@ const Login = () => {
             }else{
                 setEmailError(false)
             }
-            registerUser(email,password,name,age)
-            .then((res)=>{
-                
-                if(res.status===200||201){
-                    localStorage.setItem("token", res.data.token);
-                    history.push("/")
-                }
-            })
+           /*  registerUser(email,password,name,age) */
+            dispatch(register(email,password,name,age))/* .then((res)=>history.push("/")) */
+           
+
         }else{
             setEmpty(true)
         }
@@ -125,11 +126,11 @@ const Login = () => {
 
                     
             <form   noValidate autoComplete="off" onSubmit={handleRegister}>
-                <Input type="text" placeholder="Enter name" onChange={(e)=>setName(e.target.value)} />
-                <Input type="text" placeholder="Enter email" onChange={(e)=>setEmail(e.target.value)} />
+                <Input type="text" placeholder="Enter name *" onChange={(e)=>setName(e.target.value)} />
+                <Input type="text" placeholder="Enter email *" onChange={(e)=>setEmail(e.target.value)} />
                 {emailError&&<h6 style={{color:"red"}}>Please Enter A Valid Email</h6>}
-                <Input type="text" placeholder="Enter password" onChange={(e)=>setPassword(e.target.value)} />
-                <Input type="number" placeholder="Enter age"onChange={(e)=>setAge(e.target.value)} />
+                <Input type="text" placeholder="Enter password *" onChange={(e)=>setPassword(e.target.value)} />
+                <Input type="number" placeholder="Enter age *"onChange={(e)=>setAge(e.target.value)} />
                 {empty&&<h6 style={{color:"red"}}>Please Enter Information</h6>}
                 <Button type="submit"  className={classes.btnSubmit}> SignUp</Button>
                 <Button   className={classes.btnSubmit}> <Link to="/">login</Link> </Button>
@@ -137,27 +138,9 @@ const Login = () => {
                 <Button className={`${classes.btn} ${classes.blue}`}><i class="fa fa-facebook" aria-hidden="true"></i></Button>
                 <Button className={`${classes.btn} ${classes.red}`}><i class="fa fa-google" aria-hidden="true"></i></Button>
                 <Button className={`${classes.btn} ${classes.green}`}><i class="fa fa-twitter" aria-hidden="true"></i></Button>
+
                 </div>
 
-                
-               
-           
-{/*                    <TextField 
-                    error
-                    id="outlined-error-helper-text"
-                    label="Error"
-                    defaultValue="Hello World"
-                    helperText="Incorrect entry."
-                    variant="outlined"
-                    />
-                   <TextField
-                    error
-                    id="outlined-error-helper-text"
-                    label="Error"
-                    defaultValue="Hello World"
-                    helperText="Incorrect entry."
-                    variant="outlined"
-                    /> */}
          </form>
          </div>
 

@@ -3,11 +3,14 @@ import {TextField} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import Input from "./Input"
 import Button from "./Button"
+import { Redirect } from 'react-router-dom';
 import {Link,useHistory} from "react-router-dom"
-import {login}from "../api/login"
-import { logDOM } from '@testing-library/react';
+import {loginUser}from "../redux/actions/userActions"
 
-const useStyles = makeStyles((theme) => ({
+import { logDOM } from '@testing-library/react';
+import { useDispatch, useSelector } from "react-redux";
+
+export const useStyles = makeStyles((theme) => ({
 
   container:{
     backgroundColor:"#5d8fc9",
@@ -87,18 +90,24 @@ const Login = () => {
     const [error,setError]=useState(false)
     const [empty,setEmpty]=useState(false)
     const [loading,setLoading]=useState(false)
+    const { isLoggedIn } = useSelector(state => state.user);
+/*     const { message } = useSelector(state => state.message); */
+  
+    const dispatch = useDispatch();
     const history = useHistory();
     const handleLogin=(e)=>{
         e.preventDefault();
         if (email,password) {
             
-            login(email,password)
+            dispatch(loginUser(email,password))
+            
             .then((res)=>{
                 
-                if(res.status===200){
-                    localStorage.setItem("token", res.data.token);
-                    history.push("/todo-list")
-                }
+                
+                    
+                    history.push("/todo-list");
+                    /* window.location.reload(); */
+               
             }).catch((err)=>{
                 setError(true)
                 setEmpty(false)
@@ -112,6 +121,9 @@ const Login = () => {
        
 
     }
+/*     if (isLoggedIn) {
+        return <Redirect to="/todo-list" />;
+      } */
     return (
 
 <div className={classes.card}>
@@ -134,6 +146,13 @@ const Login = () => {
                 <Button className={`${classes.btn} ${classes.red}`}><i class="fa fa-google" aria-hidden="true"></i></Button>
                 <Button className={`${classes.btn} ${classes.green}`}><i class="fa fa-twitter" aria-hidden="true"></i></Button>
                 </div>
+{/*                 {message && (
+            <div >
+              <div >
+                {message}
+              </div>
+            </div>
+          )} */}
 
          </form>
          </div>
